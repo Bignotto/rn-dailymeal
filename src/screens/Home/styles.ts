@@ -36,3 +36,10 @@ export const AvatarImage = styled.Image`
   width: 40px;
   border-radius: 20px;
 `;
+
+export const Content = styled.View`
+  flex: 1;
+  flex-direction: column;
+  margin-top: 40px;
+  padding: 0 25px;
+`;
