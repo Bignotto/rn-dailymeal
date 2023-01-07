@@ -17,4 +17,15 @@ export default {
     gray_7: "#FAFAFA",
     white: "#FFFFFF",
   },
+  fonts: {
+    regular: "Nunito_400Regular",
+    bold: "Nunito_700Bold",
+  },
+  sizes: {
+    sm: 14,
+    md: 16,
+    lg: 18,
+    xl: 20,
+    xx: 22,
+  },
 };

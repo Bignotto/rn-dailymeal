@@ -1,10 +1,20 @@
 import React from "react";
-import { Container, SimpleText } from "./styles";
+import { Container, Header, AppLogo, Avatar, AvatarImage } from "./styles";
+
+import AppLogoSvg from "@assets/DailyDietLogo.svg";
+const avatar = require("@assets/sample_avatar.png");
 
 export default function Home() {
   return (
     <Container>
-      <SimpleText>Home Screen</SimpleText>
+      <Header>
+        <AppLogo>
+          <AppLogoSvg />
+        </AppLogo>
+        <Avatar>
+          <AvatarImage source={avatar} />
+        </Avatar>
+      </Header>
     </Container>
   );
 }
