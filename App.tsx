@@ -22,7 +22,6 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <StatusBar style="auto" />
         <Home />
       </ThemeProvider>
     </>

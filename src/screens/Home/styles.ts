@@ -43,3 +43,25 @@ export const Content = styled.View`
   margin-top: 40px;
   padding: 0 25px;
 `;
+
+export const Meals = styled.View`
+  margin-top: 40px;
+`;
+
+export const AddMealWrapper = styled.View``;
+
+export const MealTitle = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.bold};
+  font-size: 18px;
+  margin-bottom: 8px;
+`;
+
+export const MealsList = styled.View`
+  margin-top: 32px;
+`;
+
+export const MealDayText = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.bold};
+  font-size: 18px;
+  margin-bottom: 8px;
+`;
