@@ -57,6 +57,7 @@ export const MealTitle = styled.Text`
 `;
 
 export const MealsList = styled.View`
+  flex: 1;
   margin-top: 32px;
 `;
 

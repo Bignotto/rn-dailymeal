@@ -10,6 +10,7 @@ import {
 import Home from "@screens/Home";
 
 import theme from "@theme/light";
+import Stats from "@screens/Stats";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -22,7 +23,7 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Home />
+        <Stats />
       </ThemeProvider>
     </>
   );
