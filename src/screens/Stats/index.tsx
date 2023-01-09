@@ -19,7 +19,6 @@ import {
   VerticalSpacer,
 } from "./styles";
 import KpiCard from "@components/KpiCard";
-import { View } from "react-native";
 
 export default function Stats() {
   const theme = useTheme();
