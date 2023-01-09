@@ -49,7 +49,7 @@ export const Form = styled.View`
 `;
 
 export const Footer = styled.View`
-  padding: 25px;
+  padding-bottom: 24px;
 `;
 
 export const InputWrapper = styled.View`
@@ -78,4 +78,12 @@ export const HorizontalSpacer = styled.View<SpacerProps>`
 export const VerticalSpacer = styled.View<SpacerProps>`
   width: 100%;
   height: ${({ theme, space }) => space}px;
+`;
+
+export const LabelText = styled.Text`
+  color: ${({ theme }) => theme.colors.gray_2};
+  font-family: ${({ theme }) => theme.fonts.bold};
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 12px;
 `;
