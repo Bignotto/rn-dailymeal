@@ -20,7 +20,95 @@ import GenericButton from "@components/GenericButton";
 import AppLogoSvg from "@assets/DailyDietLogo.svg";
 import MealCard from "@components/MealCard";
 import { StatusBar } from "expo-status-bar";
+import { SectionList } from "react-native";
 const avatar = require("@assets/sample_avatar.png");
+
+const DATA = [
+  {
+    title: "08.01.2023",
+    data: [
+      {
+        id: 57,
+        title: "Café Gordo",
+        description: "Descrição completa da refeição incluindo ingredientes.",
+        diet: false,
+        date: "08.01.2023",
+        time: "07:00",
+      },
+      {
+        id: 58,
+        title: "Peixe grelhado",
+        description: "Descrição completa da refeição incluindo ingredientes.",
+        diet: true,
+        date: "08.01.2023",
+        time: "12:00",
+      },
+    ],
+  },
+  {
+    title: "07.01.2023",
+    data: [
+      {
+        id: 59,
+        title: "Refeição gorda 1",
+        description: "Descrição completa da refeição incluindo ingredientes.",
+        diet: false,
+        date: "07.01.2023",
+        time: "13:00",
+      },
+      {
+        id: 60,
+        title: "Refeição magra",
+        description: "Descrição completa da refeição incluindo ingredientes.",
+        diet: true,
+        date: "07.01.2023",
+        time: "21:00",
+      },
+    ],
+  },
+  {
+    title: "06.01.2023",
+    data: [
+      {
+        id: 61,
+        title: "Café Gordo",
+        description: "Descrição completa da refeição incluindo ingredientes.",
+        diet: false,
+        date: "08.01.2023",
+        time: "07:00",
+      },
+      {
+        id: 62,
+        title: "Peixe grelhado",
+        description: "Descrição completa da refeição incluindo ingredientes.",
+        diet: true,
+        date: "08.01.2023",
+        time: "12:00",
+      },
+    ],
+  },
+  {
+    title: "05.01.2023",
+    data: [
+      {
+        id: 63,
+        title: "Café Gordo",
+        description: "Descrição completa da refeição incluindo ingredientes.",
+        diet: false,
+        date: "08.01.2023",
+        time: "07:00",
+      },
+      {
+        id: 64,
+        title: "Peixe grelhado",
+        description: "Descrição completa da refeição incluindo ingredientes.",
+        diet: true,
+        date: "08.01.2023",
+        time: "12:00",
+      },
+    ],
+  },
+];
 
 export default function Home() {
   const theme = useTheme();
@@ -51,30 +139,20 @@ export default function Home() {
           </AddMealWrapper>
         </Meals>
         <MealsList>
-          <MealDayText>07.01.2023</MealDayText>
-          <MealCard
-            id={67}
-            diet={false}
-            time={"16:57"}
-            title={"Pão de queijo"}
-          />
-          <MealCard
-            id={67}
-            diet={true}
-            time={"16:57"}
-            title={"Pão de queijo"}
-          />
-          <MealCard
-            id={67}
-            diet={true}
-            time={"16:57"}
-            title={"Pão de queijo"}
-          />
-          <MealCard
-            id={67}
-            diet={false}
-            time={"16:57"}
-            title={"Pão de queijo"}
+          <SectionList
+            sections={DATA}
+            keyExtractor={({ id }) => id.toString()}
+            renderItem={({ item }) => (
+              <MealCard
+                id={item.id}
+                diet={item.diet}
+                time={item.time}
+                title={item.title}
+              />
+            )}
+            renderSectionHeader={({ section: { title } }) => (
+              <MealDayText>{title}</MealDayText>
+            )}
           />
         </MealsList>
       </Content>
