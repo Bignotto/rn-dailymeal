@@ -1,6 +1,16 @@
 import React, { useState } from "react";
+import { Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "styled-components/native";
+
+import GenericButton from "@components/GenericButton";
+import Input from "@components/Input";
+import OnDietSelector from "@components/OnDietSelector";
 import { ArrowLeft } from "phosphor-react-native";
+
+import { MealsStorageDTO } from "@storage/meals/MealStorageDTO";
+import { mealsCreate } from "@storage/meals/mealsCreate";
+
 import {
   BackBtn,
   BackButtonWrapper,
@@ -16,10 +26,9 @@ import {
   TwoColumnWrapper,
   VerticalSpacer,
 } from "./styles";
-import GenericButton from "@components/GenericButton";
-import Input from "@components/Input";
-import OnDietSelector from "@components/OnDietSelector";
-import { useNavigation } from "@react-navigation/native";
+import { formatMealsList } from "@utils/formatMealsList";
+import { mealsGetAll } from "@storage/meals/mealsGetAll";
+import { mealsClear } from "@storage/meals/mealsClearData";
 
 export default function AddMeal() {
   const theme = useTheme();
@@ -29,8 +38,38 @@ export default function AddMeal() {
     "NONE"
   );
 
+  const [mealName, setMealName] = useState("");
+  const [mealDescription, setmealDescription] = useState("");
+  const [mealDate, setmealDate] = useState("");
+  const [mealTime, setmealTime] = useState("");
+  const [onDiet, setOnDiet] = useState(false);
+
   function onSelect(select: "YES" | "NO") {
+    setOnDiet(select === "YES");
     setSelectedButton(select);
+  }
+
+  async function handleAddMeal() {
+    if (!mealName || !mealDescription || !mealDate || !mealTime)
+      return Alert.alert(
+        "Preencha todos os campos para cadastrar uma nova refeição."
+      );
+
+    const newMeal: MealsStorageDTO = {
+      id: Date.now(),
+      name: mealName,
+      description: mealDescription,
+      date: mealDate,
+      time: mealTime,
+      onDiet,
+    };
+
+    await mealsCreate(newMeal);
+  }
+
+  async function testFormatList() {
+    const meals = await mealsGetAll();
+    formatMealsList(meals);
   }
 
   return (
@@ -46,32 +85,59 @@ export default function AddMeal() {
       </Header>
       <Content>
         <Form>
-          <Input height={64} label="Nome" />
+          <Input
+            height={64}
+            label="Nome"
+            value={mealName}
+            onChangeText={setMealName}
+          />
           <VerticalSpacer space={24} />
           <Input
             height={148}
             label="Descrição"
             multiline
             textAlignVertical="top"
+            value={mealDescription}
+            onChangeText={setmealDescription}
           />
           <VerticalSpacer space={24} />
           <TwoColumnWrapper>
             <ColumnWrapper>
-              <Input height={64} label="Data" />
+              <Input
+                height={64}
+                label="Data"
+                value={mealDate}
+                onChangeText={setmealDate}
+              />
             </ColumnWrapper>
             <HorizontalSpacer space={20} />
             <ColumnWrapper>
-              <Input height={64} label="Hora" />
+              <Input
+                height={64}
+                label="Hora"
+                value={mealTime}
+                onChangeText={setmealTime}
+              />
             </ColumnWrapper>
           </TwoColumnWrapper>
           <VerticalSpacer space={8} />
           <LabelText>Está dentro da dieta?</LabelText>
           <OnDietSelector selectedButton={selectedButton} onSelect={onSelect} />
         </Form>
-        <Footer>
-          <GenericButton title="Cadastrar refeição" />
-        </Footer>
       </Content>
+      <Footer>
+        <GenericButton
+          title="Cadastrar refeição"
+          onPress={handleAddMeal}
+          style={{ marginBottom: 8 }}
+        />
+        <GenericButton
+          title="Tester Format List"
+          onPress={testFormatList}
+          style={{ marginBottom: 8 }}
+        />
+        <GenericButton title="Limpar async storage!" onPress={mealsClear} />
+      </Footer>
     </Container>
   );
 }

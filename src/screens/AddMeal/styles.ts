@@ -40,16 +40,20 @@ export const Content = styled.View`
   padding: 0 25px;
   background-color: ${({ theme }) => theme.colors.gray_7};
 
-  border-radius: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 `;
 
-export const Form = styled.View`
+export const Form = styled.ScrollView`
   flex: 1;
   padding-top: 24px;
 `;
 
 export const Footer = styled.View`
   padding-bottom: 24px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: ${({ theme }) => theme.colors.gray_7};
 `;
 
 export const InputWrapper = styled.View`
