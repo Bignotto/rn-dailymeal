@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "styled-components/native";
 import { StatusBar } from "expo-status-bar";
 import { ArrowLeft } from "phosphor-react-native";
@@ -22,13 +23,14 @@ import KpiCard from "@components/KpiCard";
 
 export default function Stats() {
   const theme = useTheme();
+  const { goBack } = useNavigation();
 
   return (
     <Container>
       <StatusBar style="dark" />
       <Header>
         <BackButtonWrapper>
-          <BackBtn>
+          <BackBtn onPress={goBack}>
             <ArrowLeft size={32} color={theme.colors.green_dark} />
           </BackBtn>
         </BackButtonWrapper>

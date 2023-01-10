@@ -25,7 +25,7 @@ export const BackButtonWrapper = styled.View`
   width: 100%;
 `;
 
-export const BackBtn = styled.Text``;
+export const BackBtn = styled.TouchableOpacity``;
 
 export const StatTextWrapper = styled.View``;
 
