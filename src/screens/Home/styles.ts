@@ -44,6 +44,8 @@ export const Content = styled.View`
   padding: 0 25px;
 `;
 
+export const KpiButton = styled.TouchableOpacity``;
+
 export const Meals = styled.View`
   margin-top: 40px;
 `;
@@ -60,6 +62,8 @@ export const MealsList = styled.View`
   flex: 1;
   margin-top: 32px;
 `;
+
+export const MealButton = styled.TouchableOpacity``;
 
 export const MealDayText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.bold};

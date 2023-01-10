@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useTheme } from "styled-components/native";
 import {
   Container,
@@ -12,6 +13,8 @@ import {
   MealTitle,
   MealsList,
   MealDayText,
+  KpiButton,
+  MealButton,
 } from "./styles";
 
 import KpiCard from "@components/KpiCard";
@@ -111,6 +114,19 @@ const DATA = [
 ];
 
 export default function Home() {
+  const navigation = useNavigation();
+
+  function handleAddMeal() {
+    navigation.navigate("addMeal");
+  }
+
+  function handleEditMeal() {
+    navigation.navigate("addMeal");
+  }
+
+  function handleStasScreen() {
+    navigation.navigate("stats");
+  }
   const theme = useTheme();
   return (
     <Container>
@@ -124,18 +140,17 @@ export default function Home() {
         </Avatar>
       </Header>
       <Content>
-        <KpiCard
-          color={theme.colors.green_light}
-          value={"98,5%"}
-          description={"das refeições dentro da dieta"}
-        />
+        <KpiButton onPress={handleStasScreen}>
+          <KpiCard
+            color={theme.colors.green_light}
+            value={"98,5%"}
+            description={"das refeições dentro da dieta"}
+          />
+        </KpiButton>
         <Meals>
           <AddMealWrapper>
             <MealTitle>Refeições</MealTitle>
-            <GenericButton
-              title="+ Nova Refeição"
-              onPress={() => console.log("worked!")}
-            />
+            <GenericButton title="+ Nova Refeição" onPress={handleAddMeal} />
           </AddMealWrapper>
         </Meals>
         <MealsList>
@@ -143,12 +158,14 @@ export default function Home() {
             sections={DATA}
             keyExtractor={({ id }) => id.toString()}
             renderItem={({ item }) => (
-              <MealCard
-                id={item.id}
-                diet={item.diet}
-                time={item.time}
-                title={item.title}
-              />
+              <MealButton onPress={handleEditMeal}>
+                <MealCard
+                  id={item.id}
+                  diet={item.diet}
+                  time={item.time}
+                  title={item.title}
+                />
+              </MealButton>
             )}
             renderSectionHeader={({ section: { title } }) => (
               <MealDayText>{title}</MealDayText>

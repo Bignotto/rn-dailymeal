@@ -19,9 +19,11 @@ import {
 import GenericButton from "@components/GenericButton";
 import Input from "@components/Input";
 import OnDietSelector from "@components/OnDietSelector";
+import { useNavigation } from "@react-navigation/native";
 
 export default function AddMeal() {
   const theme = useTheme();
+  const { goBack } = useNavigation();
 
   const [selectedButton, setSelectedButton] = useState<"NONE" | "YES" | "NO">(
     "NONE"
@@ -35,7 +37,7 @@ export default function AddMeal() {
     <Container>
       <Header>
         <BackButtonWrapper>
-          <BackBtn>
+          <BackBtn onPress={goBack}>
             <ArrowLeft size={32} color={theme.colors.gray_2} />
           </BackBtn>
         </BackButtonWrapper>

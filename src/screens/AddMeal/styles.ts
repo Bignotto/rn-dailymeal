@@ -25,7 +25,7 @@ export const BackButtonWrapper = styled.View`
   width: 24px;
 `;
 
-export const BackBtn = styled.Text``;
+export const BackBtn = styled.TouchableOpacity``;
 
 export const HeaderTitle = styled.Text`
   color: ${({ theme }) => theme.colors.gray_2};
