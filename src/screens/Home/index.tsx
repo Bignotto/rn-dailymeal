@@ -41,15 +41,15 @@ export default function Home() {
   const [ratio, setRatio] = useState(0);
 
   function handleAddMeal() {
-    navigation.navigate("addMeal");
+    navigation.navigate("addMeal", { mealId: undefined });
   }
 
-  function handleEditMeal() {
-    navigation.navigate("addMeal");
+  function handleEditMeal(mealId: number) {
+    navigation.navigate("meal", { mealId });
   }
 
   function handleStasScreen() {
-    navigation.navigate("meal");
+    navigation.navigate("stats");
   }
 
   const sectionMeals = formatMealsList(meals);
@@ -107,7 +107,7 @@ export default function Home() {
             sections={sectionMeals}
             keyExtractor={({ id }) => id.toString()}
             renderItem={({ item }) => (
-              <MealButton onPress={handleEditMeal}>
+              <MealButton onPress={() => handleEditMeal(item.id)}>
                 <MealCard
                   id={item.id}
                   diet={item.onDiet}

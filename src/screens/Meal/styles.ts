@@ -1,14 +1,22 @@
 import { getStatusBarHeight } from "react-native-iphone-x-helper";
 import styled from "styled-components/native";
 
+type HeaderProps = {
+  color: string;
+};
+
 type SpacerProps = {
   space: number;
 };
 
-export const Container = styled.View`
+type DotProps = {
+  color: string;
+};
+
+export const Container = styled.View<HeaderProps>`
   flex: 1;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.green_light};
+  background-color: ${({ theme, color }) => color};
 `;
 
 export const Header = styled.View`
@@ -59,7 +67,7 @@ export const DescriptionText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: 18px;
   margin-top: 4px;
-  margin-bottom: 4px;
+  margin-bottom: 22px;
 `;
 
 export const VerticalSpacer = styled.View<SpacerProps>`
@@ -79,4 +87,37 @@ export const MealsKpisWrapper = styled.View`
 
 export const LeftWrapper = styled.View`
   flex: 1;
+`;
+
+export const Footer = styled.View`
+  padding-bottom: 24px;
+  padding-left: 25px;
+  padding-right: 25px;
+  background-color: ${({ theme }) => theme.colors.gray_7};
+`;
+
+export const DietTag = styled.View`
+  max-width: 40%;
+  height: 44px;
+  background-color: ${({ theme }) => theme.colors.gray_6};
+
+  flex-direction: row;
+  align-items: center;
+
+  padding: 0 18px;
+  border-radius: 1000px;
+`;
+
+export const Dot = styled.View<DotProps>`
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background-color: ${({ theme, color }) => color};
+`;
+
+export const TagText = styled.Text`
+  color: ${({ theme }) => theme.colors.gray_1};
+  font-family: ${({ theme }) => theme.fonts.bold};
+  font-size: 14px;
+  margin-left: 8px;
 `;
