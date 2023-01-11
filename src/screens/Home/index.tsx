@@ -49,7 +49,7 @@ export default function Home() {
   }
 
   function handleStasScreen() {
-    navigation.navigate("stats");
+    navigation.navigate("meal");
   }
 
   const sectionMeals = formatMealsList(meals);
