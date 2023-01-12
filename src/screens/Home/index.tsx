@@ -96,12 +96,17 @@ export default function Home() {
             }
             value={`${ratio.toFixed(1)}%`}
             description={"das refeições dentro da dieta"}
+            arrow
           />
         </KpiButton>
         <Meals>
           <AddMealWrapper>
             <MealTitle>Refeições</MealTitle>
-            <GenericButton title="+ Nova Refeição" onPress={handleAddMeal} />
+            <GenericButton
+              icon="ADD"
+              title="Nova Refeição"
+              onPress={handleAddMeal}
+            />
           </AddMealWrapper>
         </Meals>
         <MealsList>

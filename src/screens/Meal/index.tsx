@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { Alert } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useTheme } from "styled-components/native";
 import { StatusBar } from "expo-status-bar";
+import { useTheme } from "styled-components/native";
 import { ArrowLeft } from "phosphor-react-native";
 import {
   Container,
@@ -10,10 +11,6 @@ import {
   BackBtn,
   HeaderSpacer,
   Content,
-  MealsKpisWrapper,
-  LeftWrapper,
-  HorizontalSpacer,
-  VerticalSpacer,
   HeaderText,
   HeaderTextWrapper,
   MealNameText,
@@ -23,12 +20,10 @@ import {
   Dot,
   TagText,
 } from "./styles";
-import KpiCard from "@components/KpiCard";
 import { mealsGetStatistics } from "@storage/meals/mealsGetStatistics";
 import GenericButton from "@components/GenericButton";
 import { MealsStorageDTO } from "@storage/meals/MealStorageDTO";
 import { mealsGetById } from "@storage/meals/mealsGetById";
-import { Alert } from "react-native";
 import { mealsDeleteById } from "@storage/meals/mealsDeleteById";
 
 type RouteParams = {
@@ -119,11 +114,13 @@ export default function Meal() {
           fill="DARK"
           style={{ marginBottom: 8 }}
           onPress={handleEditMeal}
+          icon="EDIT"
         />
         <GenericButton
           title="Excluir refeição"
           fill="LIGHT"
           onPress={handleDeleteMeal}
+          icon="DELETE"
         />
       </Footer>
     </Container>
