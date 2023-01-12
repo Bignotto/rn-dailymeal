@@ -9,6 +9,9 @@ export declare global {
       meal: {
         mealId: number;
       };
+      confirmation: {
+        onDiet: boolean;
+      };
     }
   }
 }
