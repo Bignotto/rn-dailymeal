@@ -1,4 +1,3 @@
-import { TouchableOpacity } from "react-native";
 import styled from "styled-components/native";
 
 type ContainerProps = {
@@ -10,6 +9,7 @@ export const Container = styled.TouchableOpacity<ContainerProps>`
   border-radius: 6px;
   background-color: ${({ theme, fill }) =>
     fill !== "DARK" ? theme.colors.gray_7 : theme.colors.gray_2};
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 

@@ -91,15 +91,22 @@ export default function Home() {
       <Content>
         <KpiButton onPress={handleStasScreen}>
           <KpiCard
-            color={theme.colors.green_light}
+            color={
+              ratio >= 50 ? theme.colors.green_light : theme.colors.red_light
+            }
             value={`${ratio.toFixed(1)}%`}
             description={"das refeições dentro da dieta"}
+            arrow
           />
         </KpiButton>
         <Meals>
           <AddMealWrapper>
             <MealTitle>Refeições</MealTitle>
-            <GenericButton title="+ Nova Refeição" onPress={handleAddMeal} />
+            <GenericButton
+              icon="ADD"
+              title="Nova Refeição"
+              onPress={handleAddMeal}
+            />
           </AddMealWrapper>
         </Meals>
         <MealsList>

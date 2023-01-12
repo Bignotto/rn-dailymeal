@@ -70,25 +70,6 @@ export const DescriptionText = styled.Text`
   margin-bottom: 22px;
 `;
 
-export const VerticalSpacer = styled.View<SpacerProps>`
-  width: 100%;
-  height: ${({ theme, space }) => space}px;
-`;
-
-export const HorizontalSpacer = styled.View<SpacerProps>`
-  height: 100%;
-  width: ${({ theme, space }) => space}px;
-`;
-
-export const MealsKpisWrapper = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-export const LeftWrapper = styled.View`
-  flex: 1;
-`;
-
 export const Footer = styled.View`
   padding-bottom: 24px;
   padding-left: 25px;

@@ -5,10 +5,14 @@ type SpacerProps = {
   space: number;
 };
 
-export const Container = styled.View`
+type HeaderProps = {
+  color: string;
+};
+
+export const Container = styled.View<HeaderProps>`
   flex: 1;
   flex-direction: column;
-  background-color: ${({ theme }) => theme.colors.green_light};
+  background-color: ${({ theme, color }) => color};
 `;
 
 export const Header = styled.View`

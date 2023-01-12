@@ -34,17 +34,26 @@ export default function Stats() {
     setStats(statistics);
   }
 
+  const ratio = stats?.ratio || 0;
+
   useEffect(() => {
     loadStatistics();
   }, []);
 
   return (
-    <Container>
+    <Container
+      color={ratio >= 50 ? theme.colors.green_light : theme.colors.red_light}
+    >
       <StatusBar style="dark" />
       <Header>
         <BackButtonWrapper>
           <BackBtn onPress={goBack}>
-            <ArrowLeft size={32} color={theme.colors.green_dark} />
+            <ArrowLeft
+              size={32}
+              color={
+                ratio >= 50 ? theme.colors.green_dark : theme.colors.red_dark
+              }
+            />
           </BackBtn>
         </BackButtonWrapper>
         <StatTextWrapper>
@@ -71,7 +80,7 @@ export default function Stats() {
         <MealsKpisWrapper>
           <LeftWrapper>
             <KpiCard
-              color={theme.colors.green_mid}
+              color={theme.colors.green_light}
               description="refeições dentro da dieta"
               value={`${stats?.mealsOnDietTotal}`}
             />
@@ -79,7 +88,7 @@ export default function Stats() {
           <HorizontalSpacer space={12} />
           <LeftWrapper>
             <KpiCard
-              color={theme.colors.red_mid}
+              color={theme.colors.red_light}
               description="refeições fora da dieta"
               value={`${stats?.mealsOffDietTotal}`}
             />

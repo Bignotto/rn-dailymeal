@@ -71,7 +71,7 @@ export default function AddMeal() {
     };
 
     mealId ? await mealsUpdateById(newMeal) : await mealsCreate(newMeal);
-    navigate("home");
+    navigate("confirmation", { onDiet });
   }
 
   async function loadMeal() {

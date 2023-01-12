@@ -27,3 +27,11 @@ export const DescriptionText = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: 14px;
 `;
+
+export const ArrowWrapper = styled.View`
+  width: 100%;
+  align-items: flex-end;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;
