@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useTheme } from "styled-components/native";
 import { StatusBar } from "expo-status-bar";
@@ -20,10 +20,23 @@ import {
   VerticalSpacer,
 } from "./styles";
 import KpiCard from "@components/KpiCard";
+import { mealsGetStatistics } from "@storage/meals/mealsGetStatistics";
 
 export default function Stats() {
   const theme = useTheme();
   const { goBack } = useNavigation();
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [stats, setStats] = useState<MealsStatisticsDTO>();
+
+  async function loadStatistics() {
+    const statistics = await mealsGetStatistics();
+    setStats(statistics);
+  }
+
+  useEffect(() => {
+    loadStatistics();
+  }, []);
 
   return (
     <Container>
@@ -35,7 +48,7 @@ export default function Stats() {
           </BackBtn>
         </BackButtonWrapper>
         <StatTextWrapper>
-          <StatText>98,5%</StatText>
+          <StatText>{`${stats?.ratio.toFixed(1)}%`}</StatText>
         </StatTextWrapper>
         <StatInfoWrapper>
           <StatInfoText>das refeições dentro da dieta!</StatInfoText>
@@ -46,13 +59,13 @@ export default function Stats() {
         <KpiCard
           color={theme.colors.gray_6}
           description="melhor sequência de pratos dentro da dieta"
-          value="22"
+          value={stats?.bestSequence.toString() || ""}
         />
         <VerticalSpacer space={12} />
         <KpiCard
           color={theme.colors.gray_6}
           description="refeições registradas"
-          value="105"
+          value={`${stats?.mealsTotal}`}
         />
         <VerticalSpacer space={12} />
         <MealsKpisWrapper>
@@ -60,7 +73,7 @@ export default function Stats() {
             <KpiCard
               color={theme.colors.green_mid}
               description="refeições dentro da dieta"
-              value="99"
+              value={`${stats?.mealsOnDietTotal}`}
             />
           </LeftWrapper>
           <HorizontalSpacer space={12} />
@@ -68,7 +81,7 @@ export default function Stats() {
             <KpiCard
               color={theme.colors.red_mid}
               description="refeições fora da dieta"
-              value="17"
+              value={`${stats?.mealsOffDietTotal}`}
             />
           </LeftWrapper>
         </MealsKpisWrapper>

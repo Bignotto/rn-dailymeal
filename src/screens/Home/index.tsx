@@ -29,6 +29,7 @@ import {
 } from "./styles";
 
 import AppLogoSvg from "@assets/DailyDietLogo.svg";
+import { mealsGetStatistics } from "@storage/meals/mealsGetStatistics";
 const avatar = require("@assets/sample_avatar.png");
 
 export default function Home() {
@@ -37,13 +38,14 @@ export default function Home() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [meals, setMeals] = useState<MealsStorageDTO[]>([]);
+  const [ratio, setRatio] = useState(0);
 
   function handleAddMeal() {
-    navigation.navigate("addMeal");
+    navigation.navigate("addMeal", { mealId: undefined });
   }
 
-  function handleEditMeal() {
-    navigation.navigate("addMeal");
+  function handleEditMeal(mealId: number) {
+    navigation.navigate("meal", { mealId });
   }
 
   function handleStasScreen() {
@@ -56,7 +58,9 @@ export default function Home() {
     setIsLoading(true);
     try {
       const storage = await mealsGetAll();
+      const { ratio } = await mealsGetStatistics();
       setMeals(storage);
+      setRatio(ratio);
     } catch (error) {
     } finally {
       setIsLoading(false);
@@ -88,7 +92,7 @@ export default function Home() {
         <KpiButton onPress={handleStasScreen}>
           <KpiCard
             color={theme.colors.green_light}
-            value={"98,5%"}
+            value={`${ratio.toFixed(1)}%`}
             description={"das refeições dentro da dieta"}
           />
         </KpiButton>
@@ -103,7 +107,7 @@ export default function Home() {
             sections={sectionMeals}
             keyExtractor={({ id }) => id.toString()}
             renderItem={({ item }) => (
-              <MealButton onPress={handleEditMeal}>
+              <MealButton onPress={() => handleEditMeal(item.id)}>
                 <MealCard
                   id={item.id}
                   diet={item.onDiet}

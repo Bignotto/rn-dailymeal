@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { useTheme } from "styled-components/native";
 
 import GenericButton from "@components/GenericButton";
@@ -26,13 +26,19 @@ import {
   TwoColumnWrapper,
   VerticalSpacer,
 } from "./styles";
-import { formatMealsList } from "@utils/formatMealsList";
-import { mealsGetAll } from "@storage/meals/mealsGetAll";
 import { mealsClear } from "@storage/meals/mealsClearData";
+import { mealsGetById } from "@storage/meals/mealsGetById";
+import { mealsUpdateById } from "@storage/meals/mealsUpdateById";
+
+type RouteProps = {
+  mealId: number | undefined;
+};
 
 export default function AddMeal() {
   const theme = useTheme();
-  const { goBack } = useNavigation();
+  const { goBack, navigate } = useNavigation();
+  const route = useRoute();
+  const { mealId } = route.params as RouteProps;
 
   const [selectedButton, setSelectedButton] = useState<"NONE" | "YES" | "NO">(
     "NONE"
@@ -56,7 +62,7 @@ export default function AddMeal() {
       );
 
     const newMeal: MealsStorageDTO = {
-      id: Date.now(),
+      id: mealId ? mealId : Date.now(),
       name: mealName,
       description: mealDescription,
       date: mealDate,
@@ -64,13 +70,27 @@ export default function AddMeal() {
       onDiet,
     };
 
-    await mealsCreate(newMeal);
+    mealId ? await mealsUpdateById(newMeal) : await mealsCreate(newMeal);
+    navigate("home");
   }
 
-  async function testFormatList() {
-    const meals = await mealsGetAll();
-    formatMealsList(meals);
+  async function loadMeal() {
+    let meal;
+
+    if (!mealId) return;
+
+    meal = await mealsGetById(mealId);
+
+    setMealName(meal.name);
+    setmealDescription(meal.description);
+    setmealDate(meal.date);
+    setmealTime(meal.time);
+    setSelectedButton(meal.onDiet ? "YES" : "NO");
   }
+
+  useEffect(() => {
+    loadMeal();
+  }, []);
 
   return (
     <Container>
@@ -129,11 +149,6 @@ export default function AddMeal() {
         <GenericButton
           title="Cadastrar refeição"
           onPress={handleAddMeal}
-          style={{ marginBottom: 8 }}
-        />
-        <GenericButton
-          title="Tester Format List"
-          onPress={testFormatList}
           style={{ marginBottom: 8 }}
         />
         <GenericButton title="Limpar async storage!" onPress={mealsClear} />

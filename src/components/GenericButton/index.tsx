@@ -4,12 +4,17 @@ import { Container, TitleText } from "./styles";
 
 type GenericButtonProps = TouchableOpacityProps & {
   title: string;
+  fill?: "DARK" | "LIGHT";
 };
 
-export default function GenericButton({ title, ...rest }: GenericButtonProps) {
+export default function GenericButton({
+  title,
+  fill = "DARK",
+  ...rest
+}: GenericButtonProps) {
   return (
-    <Container {...rest}>
-      <TitleText>{title}</TitleText>
+    <Container {...rest} fill={fill}>
+      <TitleText fill={fill}>{title}</TitleText>
     </Container>
   );
 }
